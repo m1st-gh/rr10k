@@ -5,14 +5,6 @@
 #
 #    This program includes two filters (low pass and median) to improve the
 #    values returned from the IMU by reducing noise.
-#
-#
-#    Feel free to do whatever you like with this code.
-#    Distributed as-is; no warranty is given.
-#
-#    http://ozzmaker.com/
-
-
 
 import sys
 import time
@@ -21,14 +13,15 @@ import IMU
 import datetime
 import csv
 import os
-
+import serial
+connection = serial.Serial("/dev/ttyUSB0", 115200)
 
 RAD_TO_DEG = 57.29578
 M_PI = 3.14159265358979323846
-G_GAIN = 0.070          # [deg/s/LSB]  If you change the dps for gyro, you need to update this value accordingly
-AA =  0.40              # Complementary filter constant
-MAG_LPF_FACTOR = 0.4    # Low pass filter constant magnetometer
-ACC_LPF_FACTOR = 0.4    # Low pass filter constant for accelerometer
+G_GAIN = 0.070                  # [deg/s/LSB]  If you change the dps for gyro, you need to update this value accordingly
+AA =  0.40                      # Complementary filter constant
+MAG_LPF_FACTOR = 0.4            # Low pass filter constant magnetometer
+ACC_LPF_FACTOR = 0.4            # Low pass filter constant for accelerometer
 ACC_MEDIANTABLESIZE = 9         # Median filter table size for accelerometer. Higher = smoother but a longer delay
 MAG_MEDIANTABLESIZE = 9         # Median filter table size for magnetometer. Higher = smoother but a longer delay
 
@@ -39,18 +32,10 @@ MAG_MEDIANTABLESIZE = 9         # Median filter table size for magnetometer. Hig
 # Calibrating the compass isnt mandatory, however a calibrated
 # compass will result in a more accurate heading value.
 
-#with open('magnetometer_values.txt', 'r') as file:
-    #calibration_values = file.read().splitlines()
+with open('magnetometer_values.txt', 'r') as file:
+    calibration_values = file.read().splitlines()
 
-#magXmin, magYmin, magZmin, magXmax, magYmax, magZmax = map(int, calibration_values)
-
-magXmin = 0
-magYmin = 0
-magZmin = 0
-magXmax = 0
-magYmax = 0
-magZmax = 0
-
+magXmin, magYmin, magZmin, magXmax, magYmax, magZmax = map(int, calibration_values)
 
 '''
 Here is an example:
@@ -173,8 +158,6 @@ oldYAccRawValue = 0
 oldZAccRawValue = 0
 
 a = datetime.datetime.now()
-
-
 
 #Setup the tables for the mdeian filter. Fill them all with '1' so we dont get devide by zero error
 acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
@@ -345,8 +328,6 @@ with open('ANGLE_DATA.csv', 'w') as angle_, open('COMPASS_DATA.csv','w') as comp
         else:
             AccYangle += 90.0
 
-
-
         #Complementary filter used to combine the accelerometer and gyro values.
         CFangleX=AA*(CFangleX+rate_gyr_x*LP) +(1 - AA) * AccXangle
         CFangleY=AA*(CFangleY+rate_gyr_y*LP) +(1 - AA) * AccYangle
@@ -362,8 +343,6 @@ with open('ANGLE_DATA.csv', 'w') as angle_, open('COMPASS_DATA.csv','w') as comp
         if heading < 0:
             heading += 360
 
-
-
         ####################################################################
         ###################Tilt compensated heading#########################
         ####################################################################
@@ -373,11 +352,9 @@ with open('ANGLE_DATA.csv', 'w') as angle_, open('COMPASS_DATA.csv','w') as comp
         accXnorm = ACCx/math.sqrt(ACCx * ACCx + ACCy * ACCy + ACCz * ACCz)
         accYnorm = ACCy/math.sqrt(ACCx * ACCx + ACCy * ACCy + ACCz * ACCz)
 
-
         #Calculate pitch and roll
         pitch = math.asin(accXnorm)
         roll = -math.asin(accYnorm/math.cos(pitch))
-
 
         #Calculate the new tilt compensated values
         #X compensation
@@ -395,7 +372,6 @@ with open('ANGLE_DATA.csv', 'w') as angle_, open('COMPASS_DATA.csv','w') as comp
 
         ##################### END Tilt Compensation ########################
 
-
         if 0:                       #Change to '0' to stop showing the angles from the accelerometer
             outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
 
@@ -412,14 +388,16 @@ with open('ANGLE_DATA.csv', 'w') as angle_, open('COMPASS_DATA.csv','w') as comp
             outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
             
         print(outputString)
-        angle_writer.writerow([round(kalmanX,7),round(kalmanY,7), timecur])
-        accel_writer.writerow([round(((ACCGx * 0.244)/1000), 5), round(((ACCGy * 0.244)/1000),5),round(((ACCGz * 0.244)/1000),5), timecur])
+        angle_data = [round(kalmanX, 7), round(kalmanY, 7), timecur]
+        accel_data = [round(((ACCGx * 0.244) / 1000), 5), round(((ACCGy * 0.244) / 1000), 5), round(((ACCGz * 0.244) / 1000), 5), timecur]
+
+        angle_string = ','.join(map(str, angle_data))
+        accel_string = ','.join(map(str, accel_data))
+
+        angle_writer.writerow([angle_string])
+        accel_writer.writerow([accel_string])
         timecur = timecur + LP
-        
-
-        
-        
-
+        connection.write(accel_string.encode())
         #slow program down a bit, makes the output more readable
-        time.sleep(0.03)
+        time.sleep(0.075)
 

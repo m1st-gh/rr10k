@@ -6,11 +6,6 @@ from MMC5983MA import *
 import time
 import sys
 
-
-
-
-
-
 def detectIMU():
     try:
         #Check for OzzMaker LTE IMU ALT (LSM6DSL and MMC5983MA)
@@ -28,23 +23,8 @@ def detectIMU():
 
     time.sleep(1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def writeByte(device_address,register,value):
     bus.write_byte_data(device_address, register, value)
-
-
 
 def readACCx():
     acc_l = 0
@@ -144,11 +124,7 @@ def readMAGz():
     return mag_l << 10 | mag_h <<2 | (mag_xyz & 0b00001100) >> 6
 
 
-
-
 def initIMU():
-
-
         #initialise the accelerometer
         writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL1_XL,0b10011111)           #ODR 3.33 kHz, +/- 8g , BW = 400hz
         writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL8_XL,0b11001000)           #Low pass filter enabled, BW9, composite filter
@@ -156,7 +132,6 @@ def initIMU():
 
         #initialise the gyroscope
         writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL2_G,0b10011100)            #ODR 3.3 kHz, 2000 dps
-
 
         #Enable compass, Continuous measurement mode, 100Hz
         writeByte(MMC5983MA_ADDRESS,MMC5983MA_CONTROL_0,0b00001000)     #"deGauss" magnetometer
