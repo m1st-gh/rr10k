@@ -370,14 +370,14 @@ with open('ANGLE_DATA.csv', 'w') as data_:
             outputString += "# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX, kalmanY)
 
         #print(outputString)
-        data = [round(kalmanX, 7),
-                round(kalmanY, 7),
-                round(((ACCGx * 0.244) / 1000), 5),
-                round(((ACCGy * 0.244) / 1000), 5),
-                round(((ACCGz * 0.244) / 1000), 5),
-                (pressure/100),
-                (temperature/100),
-                (altitude/100),
+        data = [round(kalmanX, 2),
+                round(kalmanY, 2),
+                round(((ACCGx * 0.244) / 1000), 2),
+                round(((ACCGy * 0.244) / 1000), 2),
+                round(((ACCGz * 0.244) / 1000), 2),
+                round((pressure/100), 2),
+                round((temperature/100), 2),
+                round((altitude/100), 2 ),
                 timecur]
         data_writer.writerow(data)
 
@@ -386,6 +386,6 @@ with open('ANGLE_DATA.csv', 'w') as data_:
         timecur = timecur + LP
         if(radio is not None):
             radio.write(data_out)
-            radio.write()
+            radio.write(b'\n')
         # slow program down a bit, makes the output more readable
-        time.sleep(1)
+        time.sleep(0.5)
