@@ -350,7 +350,7 @@ with open('ANGLE_DATA.csv', 'w') as data_:
 
         ##################### END Tilt Compensation ########################
         ##################### Pressure Reading       ########################
-        temperature,pressure,altitude = bmp338.get_temperature_and_pressure_and_altitude()
+        temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
         ##################### END Pressure Reading   ########################
 
         if 0:  # Change to '0' to stop showing the angles from the accelerometer
