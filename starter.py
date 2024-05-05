@@ -13,6 +13,7 @@ def initialize_serial(port, baud_rate):
 radio = initialize_serial("/dev/ttyUSB0", 115200)
 
 while (True):
-    if (b'START' == radio.readline().strip):
+    line = radio.readline().strip
+    if (line == b'START'):
       subprocess.run(['.venv/bin/python3', 'accmagbar.py'])
       exit(0);s
