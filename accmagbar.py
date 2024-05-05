@@ -172,8 +172,14 @@ IMU.initIMU()  # Initialise the accelerometer, gyroscope and compass
  #Initalise Pessure
 
 bmp388 = BMP388();
+counter = 0;
+while os.path.exists(f'ANGLE_DATA_{counter}.csv'):
+    counter += 1
 
-with open('ANGLE_DATA.csv', 'w') as data_:
+filename = f'ANGLE_DATA_{counter}.csv'
+
+
+with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
     data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "HEADING (DEG)", "TIME (S)"])
     timecur = 0.0
