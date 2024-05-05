@@ -358,7 +358,7 @@ with open(filename, 'w') as data_:
         ##################### Pressure Reading       ########################
         temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
         ##################### END Pressure Reading   ########################
-        
+
         #print(outputString)
         data = [round(kalmanX, 2),
                 round(kalmanY, 2),
@@ -379,4 +379,4 @@ with open(filename, 'w') as data_:
             radio.write(data_out)
             radio.write(b'\n')
         # slow program down a bit, makes the output more readable
-        time.sleep(0.5)
+        time.sleep(0.05)
