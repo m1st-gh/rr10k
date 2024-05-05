@@ -176,12 +176,12 @@ counter = 0;
 while os.path.exists(f'ANGLE_DATA_{counter}.csv'):
     counter += 1
 
-filename = f'ANGLE_DATA_{counter}.csv'
+filename = f'DATA_{counter}.csv'
 
 
 with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
-    data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "HEADING (DEG)", "TIME (S)"])
+    data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "TIME (S)"])
     timecur = 0.0
     radio = initialize_serial("/dev/ttyUSB0", 115200)
     while True:
