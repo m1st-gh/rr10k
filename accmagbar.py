@@ -389,6 +389,7 @@ with open(filename, 'w') as data_:
         data_writer.writerow(data)
 
         data_out = (','.join(map(str, data))).encode()
+        print(data_out)
 
         timecur = timecur + LP
         if(radio is not None):
