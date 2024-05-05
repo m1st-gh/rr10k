@@ -170,8 +170,6 @@ IMU.detectIMU()  # Detect if BerryIMU is connected.
 
 IMU.initIMU()  # Initialise the accelerometer, gyroscope and compass
 pressure = bmp388.BMP388() #Initalise Pessure
-pressure.__init__()
-
 
 with open('ANGLE_DATA.csv', 'w') as data_:
     data_writer = csv.writer(data_)
