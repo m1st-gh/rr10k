@@ -378,8 +378,8 @@ with open('ANGLE_DATA.csv', 'w') as data_:
                 round(((ACCGz * 0.244) / 1000), 2),
                 round((pressure/100), 2),
                 round((temperature/100), 2),
-                round((altitude/100), 2 ),
-                timecur]
+                round((altitude/100), 2),
+                round(timecur, 2)]
         data_writer.writerow(data)
 
         data_out = (','.join(map(str, data))).encode()
