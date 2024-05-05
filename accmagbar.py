@@ -5,7 +5,7 @@ import IMU
 import datetime
 import csv
 import os
-import bmp388
+from bmp388 import BMP388
 import serial
 
 #!/usr/bin/python
@@ -169,7 +169,7 @@ mag_medianTable2Z = [1] * MAG_MEDIANTABLESIZE
 IMU.detectIMU()  # Detect if BerryIMU is connected.
 
 IMU.initIMU()  # Initialise the accelerometer, gyroscope and compass
-pressure = bmp388.BMP388() #Initalise Pessure
+pressure = BMP388() #Initalise Pessure
 
 with open('ANGLE_DATA.csv', 'w') as data_:
     data_writer = csv.writer(data_)
