@@ -358,24 +358,7 @@ with open(filename, 'w') as data_:
         ##################### Pressure Reading       ########################
         temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
         ##################### END Pressure Reading   ########################
-
-        if 0:  # Change to '0' to stop showing the angles from the accelerometer
-            outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
-
-        if 0:  # Change to '0' to stop showing the angles from the gyro
-            outputString += "\t# GRYX Angle %5.2f  GYRY Angle %5.2f  GYRZ Angle %5.2f # " % (
-            gyroXangle, gyroYangle, gyroZangle)
-
-        if 0:  # Change to '0' to stop showing the angles from the complementary filter
-            outputString += "\t#  CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX, CFangleY)
-
-        if 0:  # Change to '0' to stop showing the heading
-            outputString += "\t# HEADING %5.2f  tiltCompensatedHeading %5.2f #" % (
-            heading, tiltCompensatedHeading)
-
-        if 0:  # Change to '0' to stop showing the angles from the Kalman filter
-            outputString += "# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX, kalmanY)
-
+        
         #print(outputString)
         data = [round(kalmanX, 2),
                 round(kalmanY, 2),
