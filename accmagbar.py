@@ -173,10 +173,10 @@ IMU.initIMU()  # Initialise the accelerometer, gyroscope and compass
 
 bmp388 = BMP388();
 counter = 0;
-while os.path.exists(f'ANGLE_DATA_{counter}.csv'):
+while os.path.exists(f'DATA_{counter}.csv'):
     counter += 1
 
-filename = f'DATA_{counter}.csv'
+filename = f'{counter}.csv'
 
 
 with open(filename, 'w') as data_:
