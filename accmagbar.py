@@ -382,7 +382,7 @@ with open(filename, 'w') as data_:
                 round(((ACCGx * 0.244) / 1000), 2),
                 round(((ACCGy * 0.244) / 1000), 2),
                 round(((ACCGz * 0.244) / 1000), 2),
-                round((pressure/100), 2),
+                round(((pressure/100)/101325), 2),
                 round((temperature/100), 2),
                 round((altitude/100), 2),
                 round(timecur, 2)]

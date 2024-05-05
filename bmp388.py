@@ -183,7 +183,7 @@ class BMP388(object):
         return comp_press
 
     def get_temperature_and_pressure_and_altitude(self):
-        """Returns pressure in Pa as double. Output value of "6386.2"equals 96386.2 Pa = 963.862 hPa."""
+        """Returns pressure in Pa as double. Output value of "96386.2"equals 96386.2 Pa = 963.862 hPa."""
 
         xlsb = self._read_byte(BMP388_REG_ADD_TEMP_XLSB)
         lsb = self._read_byte(BMP388_REG_ADD_TEMP_LSB)
