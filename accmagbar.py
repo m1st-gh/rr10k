@@ -178,10 +178,10 @@ while os.path.exists(f'DATA_{counter}.csv'):
 
 filename = f'DATA_{counter}.csv'
 
-
 with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
-    data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)"])
+    date = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
+    data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)", date])
     timecur = 0.0
     radio = initialize_serial("/dev/ttyUSB0", 115200)
     while True:
@@ -371,12 +371,10 @@ with open(filename, 'w') as data_:
                 round(timecur, 2)]
         data_writer.writerow(data)
 
-        data_out = (','.join(map(str, data))).encode()
-        print(data_out)
+        data_out = (','.join(map(str, data)) + '\n').encode()
 
         timecur = timecur + LP
         if(radio is not None):
             radio.write(data_out)
-            radio.write(b'\n')
         # slow program down a bit, makes the output more readable
-        time.sleep(0.05)
+        time.sleep(1)
