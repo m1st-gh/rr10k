@@ -169,7 +169,9 @@ mag_medianTable2Z = [1] * MAG_MEDIANTABLESIZE
 IMU.detectIMU()  # Detect if BerryIMU is connected.
 
 IMU.initIMU()  # Initialise the accelerometer, gyroscope and compass
-pressure = BMP388() #Initalise Pessure
+ #Initalise Pessure
+
+bmp388 = BMP388();
 
 with open('ANGLE_DATA.csv', 'w') as data_:
     data_writer = csv.writer(data_)
@@ -348,7 +350,7 @@ with open('ANGLE_DATA.csv', 'w') as data_:
 
         ##################### END Tilt Compensation ########################
         ##################### Pressure Reading       ########################
-        temperature,pressure,altitude = pressure.get_temperature_and_pressure_and_altitude()
+        temperature,pressure,altitude = bmp338.get_temperature_and_pressure_and_altitude()
         ##################### END Pressure Reading   ########################
 
         if 0:  # Change to '0' to stop showing the angles from the accelerometer
