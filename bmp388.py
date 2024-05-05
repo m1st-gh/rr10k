@@ -68,7 +68,7 @@ class BMP388(object):
 
     def __init__(self, address=I2C_ADD_BMP388):
         self._address = address
-        self._bus = smbus.SMBus(0x01)
+        self._bus = smbus2.SMBus(0x01)
 
         # Load calibration values.
 
