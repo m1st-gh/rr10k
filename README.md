@@ -10,8 +10,8 @@ The rr10k Sensor Package is a software library that provides functions for inter
 
 ## Requirements
 - pyserial
+- smbus2
 
-## How to setup
 ## How to setup
 
 To set up the rr10k Sensor Package, follow these steps:
