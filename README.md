@@ -16,9 +16,10 @@ The rr10k Sensor Package is a software library that provides functions for inter
 
 To set up the rr10k Sensor Package, follow these steps:
 
-1. Clone the repository: `$ git clone https://github.com/your-username/rr10k.git`
-2. Navigate to the project directory: `$ cd rr10k`
-3. Run the `create_venv.sh` script to create a virtual environment and install the required dependencies: `$ ./create_venv.sh`
-4. Use either `start_radio.sh` or `start.sh`, `autostart.sh` will start after reading a `53 54 41 52 54 0A` or `START\n` from the radio, while `start.py` will start immediately.
-5. You're all set! You can now start using the rr10k Sensor Package in your project.
+1. Clone the repository: `$ git clone https://github.com/your-username/rr10k.git`.
+2. Navigate to the project directory: `$ cd rr10k`.
+3. Run the `create_venv.sh` script to create a virtual environment and install the required dependencies: `$ ./create_venv.sh`.
+4. Run `calibrate_mag.py` to calibrate magnetometer first.
+5. Use either `start_radio.sh` or `start.sh`, `autostart.sh` will start after reading a `53 54 41 52 54 0A` or `START\n` from the radio, while `start.py` will start immediately.
+6. You're all set! You can now start using the rr10k Sensor Package in your project.
 
