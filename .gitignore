@@ -1,3 +1,5 @@
+.venv/
 *.csv
-*.txt
+magnetometer_values.txt
 __pycache__/
+.vscode/
