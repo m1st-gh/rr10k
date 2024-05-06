@@ -360,7 +360,7 @@ with open(filename, 'w') as data_:
         ##################### END Pressure Reading   ########################
 
         #print(outputString)
-        end_time = time.time()
+        
         
         data = [round(kalmanX, 2),
                 round(kalmanY, 2),
@@ -375,7 +375,8 @@ with open(filename, 'w') as data_:
         data_out = (','.join(map(str, data)) + '\n').encode()
         if(radio is not None):
             radio.write(data_out)
-        elasped_time += end_time - start_time
         time.sleep(0.04)
+        elasped_time += end_time - start_time
+        end_time = time.time()
         # slow program down a bit, makes the output more readable
         
