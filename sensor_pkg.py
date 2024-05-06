@@ -58,7 +58,7 @@ def initialize_serial(port, baud_rate):
     try:
         ser = serial.Serial(port, baud_rate)
         return ser
-    except SerialException:
+    except:
         print("Device Not detected.")
         return None
 
