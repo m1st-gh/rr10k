@@ -63,6 +63,17 @@ def initialize_serial(port, baud_rate):
         return None
 
 def kalmanFilterY(accAngle, gyroRate, DT):
+    """
+    Applies the Kalman filter to estimate the angle in the Y-axis based on accelerometer and gyroscope measurements.
+
+    Parameters:
+    - accAngle (float): The angle measured by the accelerometer in the Y-axis.
+    - gyroRate (float): The rate of change of the gyroscope in the Y-axis.
+    - DT (float): The time interval between measurements.
+
+    Returns:
+    - KFangleY (float): The estimated angle in the Y-axis after applying the Kalman filter.
+    """
     y = 0.0
     S = 0.0
 
@@ -99,6 +110,17 @@ def kalmanFilterY(accAngle, gyroRate, DT):
 
 
 def kalmanFilterX(accAngle, gyroRate, DT):
+    """
+    Applies the Kalman filter to estimate the angle in the X-axis based on accelerometer and gyroscope measurements.
+
+    Parameters:
+    - accAngle (float): The angle measured by the accelerometer in the X-axis.
+    - gyroRate (float): The rate of change of the gyroscope in the X-axis.
+    - DT (float): The time interval between measurements.
+
+    Returns:
+    - KFangleY (float): The estimated angle in the X-axis after applying the Kalman filter.
+    """
     x = 0.0
     S = 0.0
 
