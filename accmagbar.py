@@ -375,5 +375,6 @@ with open(filename, 'w') as data_:
         data_out = (','.join(map(str, data)) + '\n').encode()
         if(radio is not None):
             radio.write(data_out)
+        time.sleep(0.04)
         # slow program down a bit, makes the output more readable
         
