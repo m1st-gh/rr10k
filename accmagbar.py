@@ -182,7 +182,7 @@ with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
     date = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
     data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)", ("START: " + date)])
-    
+    elasped_time = 0;
     radio = initialize_serial("/dev/ttyUSB0", 115200)
     while True:
         start_time = time.time()
@@ -361,7 +361,7 @@ with open(filename, 'w') as data_:
 
         #print(outputString)
         end_time = time.time()
-        timecur = end_time - start_time
+        elasped_time += end_time - start_time
         data = [round(kalmanX, 2),
                 round(kalmanY, 2),
                 round(((ACCGx * 0.244) / 1000), 2),
@@ -370,7 +370,7 @@ with open(filename, 'w') as data_:
                 round(((pressure/100)/101325), 2),
                 round((temperature/100), 2),
                 round((altitude/100), 2),
-                round(timecur, 2)]
+                round(elasped_time, 2)]
         data_writer.writerow(data)
         data_out = (','.join(map(str, data)) + '\n').encode()
         if(radio is not None):
