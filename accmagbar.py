@@ -150,7 +150,7 @@ oldXAccRawValue = 0
 oldYAccRawValue = 0
 oldZAccRawValue = 0
 
-a = time.time()
+a = datetime.datetime()
 
 # Setup the tables for the median filter. Fill them all with '1' so we dont get divide by zero error
 acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
