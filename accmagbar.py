@@ -361,7 +361,7 @@ with open(filename, 'w') as data_:
 
         #print(outputString)
         end_time = time.time()
-        elasped_time += end_time - start_time
+        
         data = [round(kalmanX, 2),
                 round(kalmanY, 2),
                 round(((ACCGx * 0.244) / 1000), 2),
@@ -375,6 +375,7 @@ with open(filename, 'w') as data_:
         data_out = (','.join(map(str, data)) + '\n').encode()
         if(radio is not None):
             radio.write(data_out)
+        elasped_time += end_time - start_time
         time.sleep(0.04)
         # slow program down a bit, makes the output more readable
         
