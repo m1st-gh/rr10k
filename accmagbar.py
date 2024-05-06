@@ -150,7 +150,7 @@ oldXAccRawValue = 0
 oldYAccRawValue = 0
 oldZAccRawValue = 0
 
-a = datetime.datetime()
+a = datetime.datetime.now()
 
 # Setup the tables for the median filter. Fill them all with '1' so we dont get divide by zero error
 acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
@@ -212,8 +212,8 @@ with open(filename, 'w') as data_:
         MAGz = MAGz * (1.0 / 16384.0)  # 18 bits
 
         ##Calculate loop Period(LP). How long between Gyro Reads
-        b = datetime.datetime() - a
-        a = datetime.datetime()
+        b = datetime.datetime.now() - a
+        a = datetime.datetime.now()
         LP = b.microseconds / (1000000 * 1.0)
         outputString = "Loop Time %5.2f " % (LP)
 
