@@ -212,8 +212,8 @@ with open(filename, 'w') as data_:
         MAGz = MAGz * (1.0 / 16384.0)  # 18 bits
 
         ##Calculate loop Period(LP). How long between Gyro Reads
-        b = time.time() - a
-        a = time.time()
+        b = datetime.datetime() - a
+        a = datetime.datetime()
         LP = b.microseconds / (1000000 * 1.0)
         outputString = "Loop Time %5.2f " % (LP)
 
@@ -373,7 +373,7 @@ with open(filename, 'w') as data_:
 
         data_out = (','.join(map(str, data)) + '\n').encode()
 
-        timecur = time()
+        timecur = time.time() - timecur
         if(radio is not None):
             radio.write(data_out)
         # slow program down a bit, makes the output more readable
