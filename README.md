@@ -9,23 +9,7 @@ The rr10k Sensor Package is a software library that provides functions for inter
 - Perform basic operations such as initializing the sensor, reading sensor data, and configuring sensor settings.
 
 ## Requirements
--  contourpy
--  cycler
--  fonttools
--  future
--  iso8601
--  kiwisolver
--  matplotlib
--  numpy
--  packaging
--  pillow
--  pyparsing
--  pyserial
--  python-dateutil
--  PyYAML
--  serial
--  six
--  smbus2
+- pyserial
 
 ## How to setup
 ## How to setup
