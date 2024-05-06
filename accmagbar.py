@@ -150,7 +150,7 @@ oldXAccRawValue = 0
 oldYAccRawValue = 0
 oldZAccRawValue = 0
 
-a = datetime.datetime.now()
+a = time.time()
 
 # Setup the tables for the median filter. Fill them all with '1' so we dont get divide by zero error
 acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
@@ -181,7 +181,7 @@ filename = f'DATA_{counter}.csv'
 with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
     date = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
-    data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)", date])
+    data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)", ("START: " + date)])
     timecur = 0.0
     radio = initialize_serial("/dev/ttyUSB0", 115200)
     while True:
@@ -212,8 +212,8 @@ with open(filename, 'w') as data_:
         MAGz = MAGz * (1.0 / 16384.0)  # 18 bits
 
         ##Calculate loop Period(LP). How long between Gyro Reads
-        b = datetime.datetime.now() - a
-        a = datetime.datetime.now()
+        b = time.time() - a
+        a = time.time()
         LP = b.microseconds / (1000000 * 1.0)
         outputString = "Loop Time %5.2f " % (LP)
 
@@ -373,8 +373,8 @@ with open(filename, 'w') as data_:
 
         data_out = (','.join(map(str, data)) + '\n').encode()
 
-        timecur = timecur + LP
+        timecur = time()
         if(radio is not None):
             radio.write(data_out)
         # slow program down a bit, makes the output more readable
-        time.sleep(1)
+        
