@@ -59,8 +59,8 @@ KFangleY = 0.0
 def stop_listener(radio):
     line = ''
     while True:
-        print('reading')
         line = radio.readline().decode().strip()
+        print(line)
         if line == 'STOP\n':
             subprocess.run(['.venv/bin/python3', 'sensor_pkg.py'])
             os._exit(0)

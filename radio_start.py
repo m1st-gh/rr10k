@@ -11,6 +11,7 @@ def initialize_serial(port, baud_rate):
 
 
 radio = initialize_serial("/dev/ttyUSB0", 115200)
+print("Looking for START")
 while True:
     line = radio.readline()
     print(line)
