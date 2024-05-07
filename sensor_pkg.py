@@ -63,7 +63,7 @@ def stop_listener(radio):
     while True:
         line = radio.readline().decode().strip()
         if line == 'STOP':
-            subprocess.run(['bin/bash', 'restart.sh'])
+            subprocess.run(['/bin/bash', 'restart.sh'])
             
 
 
