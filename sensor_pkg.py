@@ -58,6 +58,7 @@ KFangleY = 0.0
 
 def stop_listener(radio):
     line = ''
+    print("inloop now")
     while True:
         line = radio.readline().decode().strip()
         print(line)
@@ -225,6 +226,7 @@ with open(filename, 'w') as data_:
     if radio is not None:
         check_stop = Thread(target=stop_listener, args=(radio,))
         check_stop.start()
+        print("thread started")
     while True:
         start_time = time.time()
         # Read the accelerometer, gyroscope and magnetometer values
@@ -412,7 +414,7 @@ with open(filename, 'w') as data_:
                 round(elasped_time, 2)]
         data_writer.writerow(data)
         data_out = (','.join(map(str, data)) + '\n').encode()
-        print(data)
+        #print(data)
         if(radio is not None):
             radio.write(data_out)
         time.sleep(0.04)
