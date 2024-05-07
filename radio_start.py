@@ -14,7 +14,7 @@ radio = initialize_serial("/dev/ttyUSB0", 115200)
 print("Looking for START")
 while True:
     line = radio.readline().decode().strip()
-    if (line == 'START\n'):
+    if (line == 'START'):
         radio.write(b'STARTING\n')
         subprocess.run(['.venv/bin/python3', 'sensor_pkg.py'])
         exit(0)
