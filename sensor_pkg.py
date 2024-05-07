@@ -60,12 +60,13 @@ stop_flag = False
 
 def stop_listener(radio):
     line = ''
-    print("inloop now")
+    print("Listener Active\n")
     while True:
         line = radio.readline().decode().strip()
         if line == 'STOP':
             subprocess.run(['/bin/bash', 'start_radio.sh'])
             os.kill(os.getpid(), signal.SIGINT)
+            print("Imstill running")
             
 
 
