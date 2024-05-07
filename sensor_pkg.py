@@ -62,7 +62,7 @@ def stop_listener(radio):
     while True:
         line = radio.readline().decode().strip()
         if line == 'STOP':
-            subprocess.run(['.venv/bin/python3', 'sensor_pkg.py'])
+            subprocess.run(['.venv/bin/python3', 'radio_start.py'])
             os._exit(0)
 
 
