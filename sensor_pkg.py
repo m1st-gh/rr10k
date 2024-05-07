@@ -7,6 +7,8 @@ import csv
 import os
 from bmp388 import BMP388
 import serial
+import subprocess
+from threading import Thread
 
 #!/usr/bin/python
 
@@ -53,6 +55,15 @@ YP_10 = 0.0
 YP_11 = 0.0
 KFangleX = 0.0
 KFangleY = 0.0
+
+def stop_listener(radio):
+    line = ''
+    while True:
+        line = radio.readline().decode().strip()
+        if line == 'STOP\n':
+            subprocess.run(['.venv/bin/python3', 'sensor_pkg.py'])
+            os._exit(0)
+
 
 def initialize_serial(port, baud_rate):
     try:
@@ -200,12 +211,19 @@ while os.path.exists(f'DATA_{counter}.csv'):
 
 filename = f'DATA_{counter}.csv'
 
+
+
+
+
 with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
     date = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
     data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)", ("START: " + date)])
     elasped_time = 0;
     radio = initialize_serial("/dev/ttyUSB0", 115200)
+    if radio is not None:
+        check_stop = Thread(target=stop_listener, args=(radio,))
+        check_stop.start()
     while True:
         start_time = time.time()
         # Read the accelerometer, gyroscope and magnetometer values
@@ -266,9 +284,9 @@ with open(filename, 'w') as data_:
             acc_medianTable1Z[x] = acc_medianTable1Z[x - 1]
 
         # Insert the latest values
-        acc_medianTable1X[0] = ACCx
-        acc_medianTable1Y[0] = ACCy
-        acc_medianTable1Z[0] = ACCz
+        acc_medianTable1X[0] = ACCx # type: ignore
+        acc_medianTable1Y[0] = ACCy # type: ignore
+        acc_medianTable1Z[0] = ACCz # type: ignore
 
         # Copy the tables
         acc_medianTable2X = acc_medianTable1X[:]
@@ -295,9 +313,9 @@ with open(filename, 'w') as data_:
             mag_medianTable1Z[x] = mag_medianTable1Z[x - 1]
 
         # Insert the latest values
-        mag_medianTable1X[0] = MAGx
-        mag_medianTable1Y[0] = MAGy
-        mag_medianTable1Z[0] = MAGz
+        mag_medianTable1X[0] = MAGx # type: ignore
+        mag_medianTable1Y[0] = MAGy # type: ignore
+        mag_medianTable1Z[0] = MAGz # type: ignore
 
         # Copy the tables
         mag_medianTable2X = mag_medianTable1X[:]
