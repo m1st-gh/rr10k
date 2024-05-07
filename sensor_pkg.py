@@ -9,6 +9,7 @@ from bmp388 import BMP388
 import serial
 import subprocess
 from threading import Thread
+import signal
 
 #!/usr/bin/python
 
