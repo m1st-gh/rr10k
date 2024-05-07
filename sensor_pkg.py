@@ -64,7 +64,7 @@ def stop_listener(radio):
     while True:
         line = radio.readline().decode().strip()
         if line == 'STOP':
-            subprocess.run(['/bin/bash', 'start_radio.sh'])
+            #subprocess.run(['/bin/bash', 'start_radio.sh'])
             stop_flag = True
             
 
@@ -225,7 +225,7 @@ with open(filename, 'w') as data_:
         check_stop = Thread(target=stop_listener, args=(radio,))
         check_stop.start()
     while True:
-        if stop_flag is not False:
+        if stop_flag is True:
             exit(0)
         start_time = time.time()        # Read the accelerometer, gyroscope and magnetometer values
         ACCx = IMU.readACCx()
