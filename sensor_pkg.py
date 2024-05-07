@@ -59,13 +59,11 @@ KFangleY = 0.0
 stop_flag = False
 
 def stop_listener(radio):
-    line = ''
     print("Listener Active\n")
     while True:
         line = radio.readline().decode().strip()
         if line == 'STOP':
-            #subprocess.run(['/bin/bash', 'start_radio.sh'])
-            stop_flag = True
+            subprocess.run(['bin/bash', 'restart.sh'])
             
 
 
