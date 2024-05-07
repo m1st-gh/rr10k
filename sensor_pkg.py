@@ -63,8 +63,8 @@ def stop_listener(radio):
     while True:
         line = radio.readline().decode().strip()
         if line == 'STOP':
-            subprocess.run(['.venv/bin/python3', 'radio_start.py'])
-            sys.exit(1)
+            subprocess.run(['/bin/bash', 'start_radio.sh'])
+            os.kill(os.getpid(), signal.SIGINT)
             
 
 
