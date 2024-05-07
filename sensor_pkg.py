@@ -61,8 +61,7 @@ def stop_listener(radio):
     print("inloop now")
     while True:
         line = radio.readline().decode().strip()
-        print(line)
-        if line == 'STOP\n':
+        if line == 'STOP':
             subprocess.run(['.venv/bin/python3', 'sensor_pkg.py'])
             os._exit(0)
 
@@ -212,10 +211,6 @@ while os.path.exists(f'DATA_{counter}.csv'):
     counter += 1
 
 filename = f'DATA_{counter}.csv'
-
-
-
-
 
 with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
