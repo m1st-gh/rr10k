@@ -55,6 +55,7 @@ YP_10 = 0.0
 YP_11 = 0.0
 KFangleX = 0.0
 KFangleY = 0.0
+stop_flag = False
 
 def stop_listener(radio):
     line = ''
@@ -63,7 +64,8 @@ def stop_listener(radio):
         line = radio.readline().decode().strip()
         if line == 'STOP':
             subprocess.run(['.venv/bin/python3', 'radio_start.py'])
-            os._exit(0)
+            sys.exit(1)
+            
 
 
 def initialize_serial(port, baud_rate):
@@ -223,8 +225,7 @@ with open(filename, 'w') as data_:
         check_stop.start()
         print("thread started")
     while True:
-        start_time = time.time()
-        # Read the accelerometer, gyroscope and magnetometer values
+        start_time = time.time()        # Read the accelerometer, gyroscope and magnetometer values
         ACCx = IMU.readACCx()
         ACCy = IMU.readACCy()
         ACCz = IMU.readACCz()
