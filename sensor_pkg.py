@@ -415,5 +415,6 @@ with open(filename, 'w') as data_:
             radio.write(data_out)
         end_time = time.time()
         elasped_time += end_time - start_time
+        time.sleep(0.1)
         # slow program down a bit, makes the output more readable
         
