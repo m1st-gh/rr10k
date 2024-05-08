@@ -398,16 +398,16 @@ with open(filename, 'w') as data_:
         temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
         ##################### END Pressure Reading   ########################
         
-        data = [round(kalmanX, 2),
-                round(kalmanY, 2),
-                round(((ACCGx * 0.244) / 1000), 2),
-                round(((ACCGy * 0.244) / 1000), 2),
-                round(((ACCGz * 0.244) / 1000), 2),
-                round(((pressure/100)/101325), 2),
-                round((temperature/100), 2),
-                round((altitude/100), 2),
-                round((heading), 2),
-                round(elasped_time, 2)]
+        data = [round(kalmanX, 1),
+                round(kalmanY, 1),
+                round(((ACCGx * 0.244) / 1000), 1),
+                round(((ACCGy * 0.244) / 1000), 1),
+                round(((ACCGz * 0.244) / 1000), 1),
+                round(((pressure/100)/101325), 1),
+                round((temperature/100), 1),
+                round((altitude/100), 1),
+                round((heading), 1),
+                round(elasped_time, 1)]
         data_writer.writerow(data)
         data_out = (','.join(map(str, data)) + '\n').encode()
         #print(data)
