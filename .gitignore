@@ -3,3 +3,4 @@
 magnetometer_values.txt
 __pycache__/
 .vscode/
+*.code-workspace
