@@ -410,7 +410,7 @@ with open(filename, 'w') as data_:
                 round(elasped_time, 1)]
         data_writer.writerow(data)
         data_out = (','.join(map(str, data)) + '\n').encode()
-        #print(data)
+        print(data)
         if(radio is not None):
             radio.write(data_out)
         time.sleep(0.1)
