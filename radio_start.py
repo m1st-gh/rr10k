@@ -6,9 +6,10 @@ def initialize_serial(port, baud_rate):
     try:
         ser = serial.Serial(port, baud_rate)
         return ser
-    except:
+    except serial.SerialException:
         print("Device Not detected.")
-        exit(1);
+        subprocess.run(['.venv/bin/python3', 'sensor_pkg.py'])
+        exit(0)
 
 
 radio = initialize_serial("/dev/ttyUSB0", 115200)
