@@ -413,7 +413,7 @@ with open(filename, 'w') as data_:
         print(data)
         if(radio is not None):
             radio.write(data_out)
-        #time.sleep(0.1)
+        time.sleep(0.06)
         end_time = time.time()
         elasped_time += end_time - start_time
         # slow program down a bit, makes the output more readable
