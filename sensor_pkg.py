@@ -1,4 +1,3 @@
-import sys
 import time
 import math
 import IMU
@@ -7,9 +6,6 @@ import csv
 import os
 from bmp388 import BMP388
 import serial
-import subprocess
-from threading import Thread
-import signal
 
 #!/usr/bin/python
 
@@ -57,14 +53,6 @@ YP_11 = 0.0
 KFangleX = 0.0
 KFangleY = 0.0
 stop_flag = False
-
-def stop_listener(radio):
-    print("Listener Active\n")
-    while True:
-        line = radio.readline().decode().strip()
-        if line == 'STOP':
-            subprocess.run(['/bin/bash', 'restart.sh'])
-            
 
 
 def initialize_serial(port, baud_rate):
@@ -219,9 +207,6 @@ with open(filename, 'w') as data_:
     data_writer.writerow(["X (DEG)", "Y (DEG)", "X (G)", "Y (G)", "Z (G)", "PRESSURE (ATM)", "TEMP (C)", "ALT (M)", "HEADING (DEG)", "TIME (S)", ("START: " + date)])
     elasped_time = 0;
     radio = initialize_serial("/dev/ttyUSB0", 115200)
-    if radio is not None:
-        check_stop = Thread(target=stop_listener, args=(radio,))
-        check_stop.start()
     while True:
         if stop_flag is True:
             exit(0)
