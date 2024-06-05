@@ -6,6 +6,9 @@ import csv
 import os
 from bmp388 import BMP388
 import serial
+from adxl345 import ADXL345
+  
+
 
 #!/usr/bin/python
 
@@ -195,11 +198,13 @@ IMU.initIMU()  # Initialise the accelerometer, gyroscope and compass
  #Initalise Pessure
 
 bmp388 = BMP388();
+adxl345 = ADXL345();
 counter = 0;
-while os.path.exists(f'DATA_{counter}.csv'):
+
+while os.path.exists(f'/mnt/usb/DATA_{counter}.csv'):
     counter += 1
 
-filename = f'DATA_{counter}.csv'
+filename = f'/mnt/usb/DATA_{counter}.csv'
 
 with open(filename, 'w') as data_:
     data_writer = csv.writer(data_)
@@ -210,6 +215,7 @@ with open(filename, 'w') as data_:
     while True:
         if stop_flag is True:
             exit(0)
+        brainACC = adxl345.getAxes(True)
         start_time = time.time()        # Read the accelerometer, gyroscope and magnetometer values
         ACCx = IMU.readACCx()
         ACCy = IMU.readACCy()
@@ -392,13 +398,16 @@ with open(filename, 'w') as data_:
                 round((temperature/100), 1),
                 round((altitude/100), 1),
                 round((heading), 1),
-                round(elasped_time, 1)]
+                round(elasped_time, 1),
+                round(brainACC['x'], 1),
+                round(brainACC['y'], 1),
+                round(brainACC['z'], 1)]
         data_writer.writerow(data)
         data_out = (','.join(map(str, data)) + '\n').encode()
         print(data)
         if(radio is not None):
             radio.write(data_out)
-        time.sleep(0.06)
+        time.sleep(0.05)
         end_time = time.time()
         elasped_time += end_time - start_time
         # slow program down a bit, makes the output more readable
